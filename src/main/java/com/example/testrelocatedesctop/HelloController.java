@@ -19,13 +19,13 @@ public class HelloController {
     public ListView list;
     @FXML
     protected void onRelocateButtonClick(ActionEvent event) throws IOException {
-        String fromPath = fromPathname.getText();
-                // "/Users/egorshapovalov/IdeaProjects/JavaActivate";
 
-        String toPath = toPathname.getText();
-                //"/Users/egorshapovalov/Downloads/testFolder";
-        
-        RelocateFile.copyFileUsingStream(toPath, fromPath, list);
+        //"/Users/egorshapovalov/Downloads/TestFolder2"
+        //"/Users/egorshapovalov/Downloads/testFolder"
+        File fileOutput = new File(toPathname.getText());
+        File fileInput = new File(fromPathname.getText());
+
+        RelocateFile.listOfFilesInDir(fileInput, fileOutput, list);
         System.out.println("Complete");
         compliteLabel.setText("Complete");
 
