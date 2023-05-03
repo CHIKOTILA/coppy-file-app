@@ -1,13 +1,7 @@
 package com.example.testrelocatedesctop.RelocateClass;
 
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-
 
 
 public class RelocateFile {
@@ -22,35 +16,45 @@ public class RelocateFile {
         }
     }
 
-    public static void listOfFilesInDir (File input, File output, ListView list) throws IOException {
-        File[] files = input.listFiles(); // все выйлы содержащеся в дирректории записываются в массив
+    public static void listOfFilesInDir(File inputStream, File outputStream, ListView list) throws IOException {
+        File[] files = inputStream.listFiles(); // все выйлы содержащеся в дирректории записываются в массив
         assert files != null; // проверка на пустоту массива
         for (File value : files) {
             identificationFile(value, list);
-            if (value.isDirectory()){
-                createDir(value, output);
-                listOfFilesInDir(value.getAbsoluteFile(), ostremDir, list);
+            if (value.isDirectory()) {
+                createDir(value, outputStream);
+                listOfFilesInDir(value.getAbsoluteFile(), osStreamDir, list); // рекурсивный вызов функции
             }
             if (!value.isDirectory())
-                relocateFile(value, output);
+                relocateFile(value, outputStream);
         }
     }
-    private static File ostremDir;
-    public static void createDir (File is /*получаем имя файла*/, File os /*получаем путь*/) throws IOException {
-        ostremDir = new File((os + "/" + is.getName())); // создаем по заданному пути файл
-        ostremDir.mkdir();
+
+    private static File osStreamDir;
+
+    /**
+     * @param inputStream  получаем имя директории
+     * @param outputStream получаем путь
+     * @throws IOException
+     */
+    public static void createDir(File inputStream, File outputStream) throws IOException {
+        osStreamDir = new File((outputStream + "/" + inputStream.getName())); // создаем путь
+        osStreamDir.mkdir(); // создаем по заданному пути директорию
     }
-    private static File ostrem;
-    public static void createFile (File is /*получаем имя файла*/, File os /*получаем путь*/) throws IOException {
-        ostrem = new File((os + "/" + is.getName())); // создаем по заданному пути файл
-        ostrem.createNewFile();
+
+    private static File osStreamFile;
+
+
+    public static void createFile(File inputStream, File outputStream) throws IOException {
+        osStreamFile = new File((outputStream + "/" + inputStream.getName())); // создаем путь
+        osStreamFile.createNewFile(); // создаем по заданному пути файл
     }
 
     public static void relocateFile(File is, File os) throws IOException {
         createFile(is, os);
 
         try (FileInputStream fileInputStream = new FileInputStream(is);
-             FileOutputStream fileOutputStream = new FileOutputStream(ostrem)) {
+             FileOutputStream fileOutputStream = new FileOutputStream(osStreamFile)) {
             byte[] buffer = new byte[1024];      // перемещаем каждый файл по байтам
             int length;
             while ((length = fileInputStream.read(buffer)) > 0) {
