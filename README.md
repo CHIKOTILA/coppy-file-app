@@ -1,6 +1,7 @@
 # RelocateFileApp
 RelocateFileApp
 This app asks two pathname and copies files from one folder to another
+
 Автор выделяет следующие исходные данные для выполнения задачи.
 Глобальные переменные:
 File osStreamDir – путь к каталогу куда копировать данные.
