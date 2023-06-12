@@ -3,6 +3,7 @@ package com.example.testrelocatedesctop;
 import com.example.testrelocatedesctop.RelocateClass.ListAPFSDescriptions;
 import com.example.testrelocatedesctop.RelocateClass.RelocateFile;
 import com.example.testrelocatedesctop.RelocateClass.WindowDescriptions;
+import com.example.testrelocatedesctop.nativelib.CreateDescriptionFile;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -15,6 +16,7 @@ public class HelloController {
 
     @FXML
     public Button click;
+    public Button createDescriptionFile;
     @FXML
     private TextField fromPathname;
     @FXML
@@ -23,12 +25,17 @@ public class HelloController {
     private Label compliteLabel;
     @FXML
     public ListView list;
-
+    @FXML
+    protected void onDescriptionButtonClick(ActionEvent event) {
+        System.out.println("Description clicked");
+        CreateDescriptionFile create = new CreateDescriptionFile();
+        create.NTFSDoc(toPathname.getText());
+    }
     @FXML
     protected void onRelocateButtonClick(ActionEvent event) throws IOException {
         //"/Users/egorshapovalov/Downloads/TestFolder2"
         //"/Users/egorshapovalov/Downloads/testFolder"
-        // сделать чтобы лист был во все окно
+
         File fileOutput = new File(toPathname.getText());
         File fileInput = new File(fromPathname.getText());
         RelocateFile.listOfFilesInDir(fileInput, fileOutput, list);

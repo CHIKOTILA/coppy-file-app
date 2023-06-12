@@ -38,7 +38,7 @@ public class RelocateFile {
      * @throws IOException
      */
     public static void createDir(File inputStream, File outputStream) throws IOException {
-        osStreamDir = new File((outputStream + "/" + inputStream.getName())); // создаем путь
+        osStreamDir = new File((outputStream + "\\" + inputStream.getName())); // создаем путь
         osStreamDir.mkdir(); // создаем по заданному пути директорию
     }
 
@@ -46,7 +46,7 @@ public class RelocateFile {
 
 
     public static void createFile(File inputStream, File outputStream) throws IOException {
-        osStreamFile = new File((outputStream + "/" + inputStream.getName())); // создаем путь
+        osStreamFile = new File((outputStream + "\\" + inputStream.getName())); // создаем путь
         osStreamFile.createNewFile(); // создаем по заданному пути файл
     }
 
